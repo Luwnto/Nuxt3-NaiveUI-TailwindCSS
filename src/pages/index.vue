@@ -38,13 +38,24 @@ const userInfo = useUserStore()
 // VueUse
 const { x, y } = useMouse()
 
+// fetch
+const handleLogin = async () => {
+  const params = {
+    phone: 'phone',
+    password: 'password'
+  }
+  try {
+    await apiLogin(params)
+  } catch (e) {
+  }
+}
 </script>
 
 <template>
   <div class="container p-8">
     <div class="mb-8">
       <h2 class="text-2xl mb-4">
-        NaiveUI Message
+        NaiveUI
       </h2>
       <n-button
         type="success"
@@ -81,6 +92,18 @@ const { x, y } = useMouse()
         VueUse
       </h2>
       <span class="text-[18px]">pos: {{ x }}, {{ y }}</span>
+    </div>
+
+    <div class="mb-8">
+      <h2 class="text-2xl mb-4">
+        Fetch
+      </h2>
+      <n-button
+        type="success"
+        @click="handleLogin"
+      >
+        Do Login
+      </n-button>
     </div>
   </div>
 </template>
