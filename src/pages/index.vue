@@ -54,6 +54,12 @@ const handleLogin = async () => {
     console.log(e)
   }
 }
+
+// Custom Hooks
+const num1 = ref(0)
+const num2 = ref(0)
+const { addNum, addFn } = useAdd({ num1, num2 })
+addFn(num1.value, num2.value) // just demo, this is not use
 </script>
 
 <template>
@@ -89,13 +95,15 @@ const handleLogin = async () => {
       <h2 class="text-2xl mb-4">
         Tailwind CSS
       </h2>
-      <figure class="md:flex bg-slate-100 rounded-xl p-8 md:p-0 dark:bg-slate-800">
+      <figure
+        class="md:flex bg-slate-100 rounded-xl p-8 md:p-0 dark:bg-slate-800"
+      >
         <div class="pt-6 md:p-8 text-center space-y-4">
           <blockquote>
             <p class="text-lg font-medium text-white">
-              “Tailwind CSS is the only framework that I've seen scale
-              on large teams. It’s easy to customize, adapts to any design,
-              and the build size is tiny.”
+              “Tailwind CSS is the only framework that I've seen scale on large
+              teams. It’s easy to customize, adapts to any design, and the build
+              size is tiny.”
             </p>
           </blockquote>
           <figcaption class="font-medium">
@@ -136,10 +144,28 @@ const handleLogin = async () => {
         Do Login
       </n-button>
     </div>
+
+    <div class="mb-8">
+      <h2 class="text-2xl mb-4">
+        Custom Hooks
+      </h2>
+      <div class="flex">
+        <n-input-number
+          v-model:value="num1"
+          clearable
+        />
+        <n-input-number
+          v-model:value="num2"
+          class="ml-5"
+          clearable
+        />
+        <span class="ml-5">add result: {{ addNum }}</span>
+      </div>
+    </div>
   </div>
 </template>
 
-<style scoped lang="scss">
+<style scoped lang='scss'>
 .container {
   h1 {
     color: $textColor;
