@@ -7,9 +7,7 @@ export default defineNuxtConfig({
     // apiSecret 只能在服务器端上访问
     apiSecret: '',
     // public 命名空间中定义的，在服务器端和客户端都可以普遍访问
-    public: {
-      baseURL: process.env.NUXT_PUBLIC_API_BASE
-    }
+    public: { baseURL: process.env.NUXT_PUBLIC_API_BASE }
   },
   devtools: { enabled: false },
   srcDir: 'src/',
@@ -51,21 +49,18 @@ export default defineNuxtConfig({
         resolvers: [NaiveUiResolver()]
       })
     ],
-    // ssr: {
-    //   noExternal: ['moment', 'naive-ui', '@juggle/resize-observer', '@css-render/vue3-ssr'],
-    // },
+
+    /*
+     * ssr: {
+     *   noExternal: ['moment', 'naive-ui', '@juggle/resize-observer', '@css-render/vue3-ssr'],
+     * },
+     */
     optimizeDeps: {
       include:
         process.env.NODE_ENV === 'development' ?
           ['naive-ui', 'vueuc', 'date-fns-tz/esm/formatInTimeZone'] :
           []
     },
-    css: {
-      preprocessorOptions: {
-        scss: {
-          additionalData: '@import "~/assets/styles/main.scss";'
-        }
-      }
-    }
+    css: { preprocessorOptions: { scss: { additionalData: '@import "~/assets/styles/main.scss";' } } }
   }
 })

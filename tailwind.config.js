@@ -8,9 +8,7 @@ module.exports = {
     './nuxt.config.{js,ts}',
     './src/app.vue',
   ],
-  theme: {
-    extend: {},
-  },
+  theme: { extend: {} },
   plugins: [],
 }
 

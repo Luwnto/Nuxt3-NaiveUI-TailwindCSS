@@ -8,24 +8,20 @@ export default defineNuxtPlugin(nuxtApp => {
     nuxtApp.ssrContext = nuxtApp.ssrContext || {}
     nuxtApp.ssrContext.renderMeta = () => {
       if (!originalRenderMeta) {
-        return {
-          headTags: collect()
-        }
+        return { headTags: collect() }
       }
       const originalMeta = originalRenderMeta()
       if ('then' in originalMeta) {
-        return originalMeta.then(resolvedOriginalMeta => {
-          return {
-            ...resolvedOriginalMeta,
-            headTags: resolvedOriginalMeta['headTags'] + collect()
-          }
-        })
-      } 
+        return originalMeta.then(resolvedOriginalMeta => ({
+          ...resolvedOriginalMeta,
+          headTags: resolvedOriginalMeta['headTags'] + collect()
+        }))
+      }
       return {
         ...originalMeta,
         headTags: originalMeta['headTags'] + collect()
       }
-      
+
     }
   }
 })

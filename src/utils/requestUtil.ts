@@ -5,18 +5,18 @@
  * @param opt
  * @param custom
  */
-const fetch = async (url, opt, custom) => {
-  //解决刷新页面useFetch无返回
+const fetch = async (url: string, opt: object = {}, custom: object = {}) => {
+  // 解决刷新页面useFetch无返回
   if (nextTick) await nextTick()
 
   const config = useRuntimeConfig()
   const baseURL = config.public.baseURL
 
-  return new Promise < any > ((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     useFetch(url, {
       // method, body, query, ...
       ...opt,
-      // ofetch库会自动识别请求地址，对于url已包含域名的请求不会再拼接baseURL
+      // ofetch 库会自动识别请求地址，对于url已包含域名的请求不会再拼接baseURL
       baseURL,
       // onRequest相当于请求拦截
       onRequest({ options }) {
@@ -64,8 +64,7 @@ const fetch = async (url, opt, custom) => {
         }
 
         // 否则返回一个pending中的promise，请求不会进入catch中
-        return new Promise(() => {
-        })
+        return new Promise(() => ({}))
       },
       // error
       onRequestError() {
@@ -84,19 +83,19 @@ const fetch = async (url, opt, custom) => {
 }
 
 export default {
-  get(url, params = {}, custom = {}) {
+  get(url: string, params: object = {}, custom: object = {}) {
     return fetch(url, { method: 'get', params }, custom)
   },
 
-  post(url, body = {}, custom = {}) {
+  post(url: string, body: object = {}, custom: object = {}) {
     return fetch(url, { method: 'post', body }, custom)
   },
 
-  put(url, body = {}, custom = {}) {
+  put(url: string, body: object = {}, custom: object = {}) {
     return fetch(url, { method: 'put', body }, custom)
   },
 
-  delete(url, body = {}, custom = {}) {
+  delete(url: string, body: object = {}, custom: object = {}) {
     return fetch(url, { method: 'delete', body }, custom)
   }
 }

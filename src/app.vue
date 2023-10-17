@@ -14,7 +14,9 @@ onBeforeMount(() => {
 /**
  * 挂载之后
  */
-onMounted(() => {})
+onMounted(() => {
+  // do something
+})
 </script>
 
 <template>

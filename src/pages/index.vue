@@ -32,8 +32,11 @@ const handleShowLoadingBar = () => {
 
 // pina, don't need to import, nuxt can auto import it
 const userInfo = useUserStore()
-// you can change value:
-// userInfo.name = 'Fe2'
+
+/*
+ * you can change value:
+ * userInfo.name = 'Fe2'
+ */
 
 // VueUse
 const { x, y } = useMouse()
