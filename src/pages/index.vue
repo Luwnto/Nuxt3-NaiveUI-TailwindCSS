@@ -4,18 +4,18 @@
  * message
  */
 const handleShowMessage = () => {
-  msgUtil.$message.error('Show Message Success!')
+  utilMsg.$message.error('Show Message Success!')
 }
 
 /**
  * dialog
  */
 const handleShowDialog = () => {
-  msgUtil.$dialog.warning({
+  utilMsg.$dialog.warning({
     title: 'Title',
     content: 'Content',
     onAfterLeave: () => {
-      msgUtil.$message.success('Close Success!')
+      utilMsg.$message.success('Close Success!')
     }
   })
 }
@@ -24,9 +24,9 @@ const handleShowDialog = () => {
  * loadingBar
  */
 const handleShowLoadingBar = () => {
-  msgUtil.$loadingBar.start()
+  utilMsg.$loadingBar.start()
   setTimeout(() => {
-    msgUtil.$loadingBar.finish()
+    utilMsg.$loadingBar.finish()
   }, 500)
 }
 
@@ -48,8 +48,10 @@ const handleLogin = async () => {
     password: 'password'
   }
   try {
-    await apiLogin(params)
+    const res = await apiLogin(params)
+    console.log(res)
   } catch (e) {
+    console.log(e)
   }
 }
 </script>

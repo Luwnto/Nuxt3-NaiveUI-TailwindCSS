@@ -23,7 +23,7 @@ const fetch = async (url: string, opt: object = {}, custom: object = {}) => {
         // 根据额外的参数, 判断是否需要登录, 默认需要登录,如果没有 token, 直接重定向到登录
 
         // 请求开始的时候, 显示加载 loading
-        msgUtil.$loadingBar.start()
+        utilMsg.$loadingBar.start()
 
         // 设置请求头
         options.headers = {
@@ -34,7 +34,7 @@ const fetch = async (url: string, opt: object = {}, custom: object = {}) => {
       // onResponse相当于响应拦截
       onResponse({ response }) {
         // 隐藏Loading
-        msgUtil.$loadingBar.finish()
+        utilMsg.$loadingBar.finish()
 
         // 接口返回的数据
         const data = response._data
@@ -46,7 +46,7 @@ const fetch = async (url: string, opt: object = {}, custom: object = {}) => {
         // 如果是 200, 直接返回数据
         if (data.code === 200) {
           // 根据参数, 判断是否显示成功的消息
-          if (custom?.toast) msgUtil.$message.success(data.message)
+          if (custom?.toast) utilMsg.$message.success(data.message)
           return resolve(data.data)
         }
 
@@ -56,7 +56,7 @@ const fetch = async (url: string, opt: object = {}, custom: object = {}) => {
         }
 
         // 提示错误消息
-        msgUtil.$message.error(data.message)
+        utilMsg.$message.error(data.message)
 
         // 如果需要catch返回，则进行reject
         if (custom?.catch) {
@@ -69,14 +69,14 @@ const fetch = async (url: string, opt: object = {}, custom: object = {}) => {
       // error
       onRequestError() {
         // 隐藏Loading
-        msgUtil.$loadingBar.finish()
-        msgUtil.$message.error('Request Error')
+        utilMsg.$loadingBar.finish()
+        utilMsg.$message.error('Request Error')
       },
       // request, response, options
       onResponseError() {
         // 隐藏Loading
-        msgUtil.$loadingBar.finish()
-        msgUtil.$message.error('Request Error')
+        utilMsg.$loadingBar.finish()
+        utilMsg.$message.error('Request Error')
       }
     })
   })

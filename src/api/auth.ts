@@ -1,2 +1,2 @@
 // Login
-export const apiLogin = params => requestUtil.post('/login', params)
+export const apiLogin = params => utilRequest.post('/login', params)
