@@ -95,15 +95,12 @@ addFn(num1.value, num2.value) // just demo, this is not use
       <h2 class="text-2xl mb-4">
         Tailwind CSS
       </h2>
-      <figure
-        class="md:flex bg-slate-100 rounded-xl p-8 md:p-0 dark:bg-slate-800"
-      >
+      <figure class="md:flex bg-slate-100 rounded-xl p-8 md:p-0 dark:bg-slate-800">
         <div class="pt-6 md:p-8 text-center space-y-4">
           <blockquote>
             <p class="text-lg font-medium text-white">
-              “Tailwind CSS is the only framework that I've seen scale on large
-              teams. It’s easy to customize, adapts to any design, and the build
-              size is tiny.”
+              “Tailwind CSS is the only framework that I've seen scale on large teams. It’s easy to
+              customize, adapts to any design, and the build size is tiny.”
             </p>
           </blockquote>
           <figcaption class="font-medium">
@@ -149,7 +146,7 @@ addFn(num1.value, num2.value) // just demo, this is not use
       <h2 class="text-2xl mb-4">
         Custom Hooks
       </h2>
-      <div class="flex">
+      <div class="flex items-center">
         <n-input-number
           v-model:value="num1"
           clearable
@@ -159,13 +156,20 @@ addFn(num1.value, num2.value) // just demo, this is not use
           class="ml-5"
           clearable
         />
-        <span class="ml-5">add result: {{ addNum }}</span>
+        <span class="ml-5">Add Result: {{ addNum }}</span>
       </div>
+    </div>
+
+    <div class="mb-8">
+      <h2 class="text-2xl mb-4">
+        Custom Components
+      </h2>
+      <hello name="Fe" />
     </div>
   </div>
 </template>
 
-<style scoped lang='scss'>
+<style scoped lang="scss">
 .container {
   h1 {
     color: $textColor;
