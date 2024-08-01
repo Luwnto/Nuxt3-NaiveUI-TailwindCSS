@@ -52,6 +52,7 @@ const handleLogin = async () => {
     console.log(res)
   } catch (e) {
     console.log(e)
+    utilMsg.$message.error(`${e.error.message} ${e.request}`)
   }
 }
 
@@ -60,6 +61,16 @@ const num1 = ref(0)
 const num2 = ref(0)
 const { addNum, addFn } = useAdd({ num1, num2 })
 addFn(num1.value, num2.value) // just demo, this is not use
+
+// ssr page
+const toSsr = () => {
+
+  /*
+   * router.push() 是前端的行为, 无法应用于 ssr 页面
+   * window.open('/ssr')
+   */
+  location.href = '/ssr'
+}
 </script>
 
 <template>
@@ -139,6 +150,13 @@ addFn(num1.value, num2.value) // just demo, this is not use
         @click="handleLogin"
       >
         Do Login
+      </n-button>
+      <span class="ml-3" />
+      <n-button
+        type="success"
+        @click="toSsr"
+      >
+        SSR
       </n-button>
     </div>
 

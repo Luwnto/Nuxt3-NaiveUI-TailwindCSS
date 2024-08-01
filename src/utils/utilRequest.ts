@@ -5,11 +5,8 @@
  * @param opt
  * @param custom
  */
-const fetch = async (url: string, opt: object = {}, custom: object = {}) => {
-  // 解决刷新页面useFetch无返回
-  if (nextTick) await nextTick()
-
-  const config = useRuntimeConfig()
+const fetch = (url: string, opt: object = {}, custom: object = {}) => {
+  const config = await useRuntimeConfig()
   const baseURL = config.public.baseURL
 
   return new Promise((resolve, reject) => {
@@ -22,9 +19,6 @@ const fetch = async (url: string, opt: object = {}, custom: object = {}) => {
       onRequest({ options }) {
         // 根据额外的参数, 判断是否需要登录, 默认需要登录,如果没有 token, 直接重定向到登录
 
-        // 请求开始的时候, 显示加载 loading
-        utilMsg.$loadingBar.start()
-
         // 设置请求头
         options.headers = {
           ...options.headers,
@@ -33,9 +27,6 @@ const fetch = async (url: string, opt: object = {}, custom: object = {}) => {
       },
       // onResponse相当于响应拦截
       onResponse({ response }) {
-        // 隐藏Loading
-        utilMsg.$loadingBar.finish()
-
         // 接口返回的数据
         const data = response._data
 
@@ -43,10 +34,11 @@ const fetch = async (url: string, opt: object = {}, custom: object = {}) => {
         const status = response.status
         if (status !== 200) return reject(data)
 
+        // TODO 这里直接返回数据, 您真实的业务请自行处理状态码
+        return resolve(data)
+
         // 如果是 200, 直接返回数据
         if (data.code === 200) {
-          // 根据参数, 判断是否显示成功的消息
-          if (custom?.toast) utilMsg.$message.success(data.message)
           return resolve(data.data)
         }
 
@@ -55,8 +47,8 @@ const fetch = async (url: string, opt: object = {}, custom: object = {}) => {
           // 重定向到登录
         }
 
-        // 提示错误消息
-        utilMsg.$message.error(data.message)
+        // 处理错误消息, 请勿使用客户端相关的 api, 否则ssr失效
+        console.log(data.message)
 
         // 如果需要catch返回，则进行reject
         if (custom?.catch) {
@@ -67,16 +59,14 @@ const fetch = async (url: string, opt: object = {}, custom: object = {}) => {
         return new Promise(() => ({}))
       },
       // error
-      onRequestError() {
-        // 隐藏Loading
-        utilMsg.$loadingBar.finish()
-        utilMsg.$message.error('Request Error')
+      onRequestError(e) {
+        console.log('Request Error')
+        reject(e)
       },
       // request, response, options
-      onResponseError() {
-        // 隐藏Loading
-        utilMsg.$loadingBar.finish()
-        utilMsg.$message.error('Request Error')
+      onResponseError(e) {
+        console.log('Request Error')
+        reject(e)
       }
     })
   })
