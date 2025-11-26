@@ -5,7 +5,7 @@
  * @param opt
  * @param custom
  */
-const fetch = (url: string, opt: object = {}, custom: object = {}) => {
+const fetch = async (url: string, opt: object = {}, custom: object = {}) => {
   const config = await useRuntimeConfig()
   const baseURL = config.public.baseURL
 
